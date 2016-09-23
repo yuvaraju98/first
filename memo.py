@@ -1,57 +1,46 @@
 from tkinter import *
 root=Tk()
-root.title("Memo 3")
+root.title("Yuvi's CAl")
+
+
 class cal:
     def __init__(self):
-        self.p=0
-        self.n=0
+        self.frame=Frame(root,width=250,height=250)
+        self.frame.grid()
+        self.string=StringVar()
+        self.count=1  
+        self.ad()
+        self.box()
+   
+    def ad(self):
+        self.wrt()
+        add=Button(self.frame,text="add",command=self.box)
+        add.grid(row=self.count,column=7)
         
-        self.enter1=Text(root)
-        self.enter1.bind('<Enter>',self.ent)
-        self.enter1.pack(side=RIGHT)
-        self.enter1.focus()
-        add=Button(root,text="Done",command=self.box)
-        add.pack(side=BOTTOM)
-        self.re()
-        
-    def ent(self):
-        self.p+=1
-        self.enter1.set("\n")
-        self.enter1.set(self.p)
-        
-    def box(self):
-        input = self.enter1.get("0.0",END)
-        self.f=open("store","a")
-        self.f.write(input+"\n")
-        self.done()
-        self.f.close()
-    def re(self):
-        self.f=open("store","r")
-        get=[]
-        get=self.f.readlines()
-        j=0
-        for i in range(j,len(get)-1):
-            j+=1
-        
-            Checkbutton(root, text=get[i]).pack(side=RIGHT)
-        
-        self.f.close()
-    
     def done(self):
-         
-        self.f=open("store","r")
-        ag=[]
-        ag=self.f.readlines()
+        self.now=self.count-1
         
-        for i in range(self.n,len(ag)-1):
-            self.n+=1
+        add=Button(self.frame,text="done",command=self.box)
+        add.grid(row=self.now,column=7)
+    def box(self):    
+
+        self.count+=1
+        self.string=StringVar()
+        enter=Entry(self.frame,textvariable=self.string)
+        enter.grid(row=self.count,column=0,columnspan=6)
+        self.done()
+        self.ad()
         
-            Checkbutton(root, text=ag[i]).pack(side=RIGHT)
+    def wrt(self):
+        cher="a"
+        file=open("store2",cher)
+        file.write("\n")
+        file.write(self.string.get())  
+        file.close()    
         
-        self.f.close()
-        self.enter1.set("\n"+self.i)
-        self.enter1.delete(0,END)
-cal()
+        
+        
+ca=cal()
+ca.__init__()
+      
 mainloop()
-
-
